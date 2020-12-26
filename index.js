@@ -11,5 +11,5 @@ const server = require('server')
 const fileReader = require('fileReader')
 
 server.use(fileReader)
-server.port = process.env.PORT
+server.port = +process.env.PORT || undefined
 server.run()
