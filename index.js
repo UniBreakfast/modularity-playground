@@ -1,7 +1,18 @@
-const { readdir } = require("fs").promises
-const { createServer } = require('http')
-try { require('./config') } catch {}
+try {
+  require('./config.js')
+} catch {
+  if (!process.env.PORT) {
+    console.log("config.js not found, env.PORT not set so server won't run")
+    process.exit(2)
+  }
+}
 
-createServer(async (req, resp) => {
-  resp.end((await readdir('.')).join('\n'))
-}).listen(process.env.PORT)
+require('fs').renameSync('./node_modules_', './node_modules')
+const server = require('server')
+const fileReader = require('fileReader')
+require('fs').renameSync('./node_modules', './node_modules_')
+
+
+server.use(fileReader)
+server.port = +process.env.PORT || undefined
+server.run()
