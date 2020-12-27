@@ -7,10 +7,8 @@ try {
   }
 }
 
-require('fs').renameSync('./node_modules_', './node_modules')
-const server = require('server')
-const fileReader = require('fileReader')
-require('fs').renameSync('./node_modules', './node_modules_')
+const server = require('./modules/server')
+const fileReader = require('./modules/fileReader')
 
 
 server.use(fileReader)
