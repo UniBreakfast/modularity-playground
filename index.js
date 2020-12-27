@@ -1,16 +1,9 @@
-try {
-  require('./config.js')
-} catch {
-  if (!process.env.PORT) {
-    console.log("config.js not found, env.PORT not set so server won't run")
-    process.exit(2)
-  }
-}
+require('./modules/loadConfig')
 
 const server = require('./modules/server')
 const fileReader = require('./modules/fileReader')
 
 
 server.use(fileReader)
-server.port = +process.env.PORT || undefined
+server.port = +process.env.PORT
 server.run()
