@@ -1,10 +1,8 @@
-module.exports = async function readPublic() {
-  const structure = await scanPublic()
+module.exports = async function readPublic(structure) {
   return read("public", structure)
 }
 
 
-const scanPublic = require('./publicScanner')
 const { readFile } = require("fs").promises
 
 
