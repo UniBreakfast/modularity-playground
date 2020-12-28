@@ -5,12 +5,15 @@ module.exports = async function readPublic() {
 
 
 const scanPublic = require('./publicScanner')
-const {readFile} = require("fs").promises
+const { readFile } = require("fs").promises
 
 
 async function read(path, struct) {
-  return Object.fromEntries(await Promise.all(Object.entries(struct).map(async ([name, item]) => [
-    name,
-    await (item === true ? readFile(`${path}/${name}`) : read(`${path}/${name}`, item))
-  ])))
+  let entries = Object.entries(struct)
+
+  entries = await Promise.all(entries.map(async ([name, item]) =>
+    [name, await (item === true ? readFile(`${path}/${name}`)
+      : read(`${path}/${name}`, item))]))
+
+  return Object.fromEntries(entries)
 }
