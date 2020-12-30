@@ -1,10 +1,7 @@
-require('./modules/loadConfig')
+require('./modules/configLoader')
 
 const server = require('./modules/server')
-const publicReader = require('./modules/publicReader')
-const publicScanner = require('./modules/publicScanner')
+const publicServer = require('./modules/publicServer')
 
-
-server.use(publicScanner, publicReader)
 server.port = +process.env.PORT
-server.run()
+server.prepare(publicServer).then(server.run)
