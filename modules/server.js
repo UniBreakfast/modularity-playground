@@ -1,31 +1,29 @@
 const serverWrapper = module.exports = {
-  use: (scanner, reader) => [scan, read] = [scanner, reader],
+  prepare: async prepPublic => public = await prepPublic(),
 
   port: undefined,
 
   async run() {
-    if (scan && read) public = await read(await scan())
     const server = createServer(handleRequest)
-    server.listen(this.port, reportStart)
+    server.listen(serverWrapper.port, reportStart)
   }
 }
 
 
 const { createServer } = require("http")
 
-let scan, read, public = {}
+let public = {}
 
 async function handleRequest(req, resp) {
-  const path = req.url.slice(1) || 'index.html'
+  const { url } = req
 
-  try {
-    const file = path.split('/').reduce((dir, sub) => dir[sub] || {}, public)
-    if (file instanceof Buffer) resp.end(file)
-    else throw path+' not found'
-  } catch (err) {
-    console.log(err)
+  const handler = public[url]
+
+  if (handler) handler(resp)
+  else {
     resp.statusCode = 404
-    resp.end(path+ ' not found')
+    resp.end(url+ ' not found')
+    console.log(url+ ' not found')
   }
 }
 
