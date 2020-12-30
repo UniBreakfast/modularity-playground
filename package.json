@@ -1,0 +1,20 @@
+{
+  "name": "modularity-playground",
+  "version": "1.0.0",
+  "description": "Here I am going to play at modular development in light of some new insights I had lately. I'm planning to utilize the IDD (issue driven development). So I'm going to add issue first, then plan how to solve it and only then actually code in some highly modular solution.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UniBreakfast/modularity-playground.git"
+  },
+  "keywords": [],
+  "author": "Mykhailo \"Ninin\" Velykoselskyi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/UniBreakfast/modularity-playground/issues"
+  },
+  "homepage": "https://github.com/UniBreakfast/modularity-playground#readme"
+}
