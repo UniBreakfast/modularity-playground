@@ -1,17 +1,6 @@
-const authority = {register, startSession, continueSession}
+const promisedAuthority = import('../public/authority.mjs')
 
 
-export default authority
-
-
-function register(customId, password) {
-
-}
-
-function startSession(customId, password) {
-
-}
-
-function continueSession(token, id) {
-
+module.exports = function buildAuthority() {
+  return promisedAuthority
 }
