@@ -1,5 +1,8 @@
 const serverWrapper = module.exports = {
-  prepare: async prepPublic => public = await prepPublic(),
+  prepare: async prepPublic => {
+    console.time('preparations took')
+    public = await prepPublic()
+  },
 
   port: undefined,
 
@@ -28,5 +31,6 @@ async function handleRequest(req, resp) {
 }
 
 function reportStart() {
+  console.timeEnd('preparations took')
   console.log(`Server started on http://localhost:${serverWrapper.port}`)
 }
