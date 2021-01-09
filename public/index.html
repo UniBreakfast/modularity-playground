@@ -8,7 +8,10 @@
 
   <script>
     Promise.all([import('./authority.mjs'), import('./testAuthority.mjs')])
-      .then(([{authority}, {testAuthority}]) => testAuthority(authority))
+      .then(([{authority}, {testAuthority}]) => {
+        testAuthority(authority)
+        window.authority = authority
+      })
   </script>
 </head>
 

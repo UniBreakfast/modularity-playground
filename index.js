@@ -10,4 +10,4 @@ server.prepare(publicServer).then(server.run)
 
 const buildAuthority = require('./modules/authority.js')
 
-buildAuthority().then(({authority}) => authority.register('me'))
+buildAuthority().then(({authority}) => authority.register('me', 'now'))
