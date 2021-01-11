@@ -1,17 +1,18 @@
-export const sessionClerk = {add, check}
+export function buildSessionClerk(store, genTokenFn) {
+
+  const sessionClerk = {add, check}
+
+  return sessionClerk
 
 
-import {sessionStore} from './sessionStore.mjs'
-import {generateToken} from './tokenGenerator.mjs'
+  function add(accountId) {
+    const token = genTokenFn()
+    const sessionId = store.insert({accountId, token})
+    return {sessionId, token}
+  }
 
-
-function add(accountId) {
-  const token = generateToken()
-  const sessionId = sessionStore.insert({accountId, token})
-  return {sessionId, token}
-}
-
-function check(id, token) {
-  const session = sessionStore.find({id, token})
-  if (session) return session.accountId
+  function check(id, token) {
+    const session = store.find({id, token})
+    if (session) return session.accountId
+  }
 }

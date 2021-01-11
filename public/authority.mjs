@@ -1,29 +1,14 @@
-export const authority = {register, startSession, continueSession}
+import {buildAuthority} from './authorityBuilder.mjs'
+import {buildAccountClerk} from './accountClerk.mjs'
+import {accountStore} from './accountStore.mjs'
+import {crypter} from './crypter.mjs'
+import {buildSessionClerk} from './sessionClerk.mjs'
+import {sessionStore} from './sessionStore.mjs'
+import {generateToken} from './tokenGenerator.mjs'
 
 
-import {accountClerk} from './accountClerk.mjs'
-import {sessionClerk} from './sessionClerk.mjs'
+const accountClerk = buildAccountClerk(accountStore, crypter)
+const sessionClerk = buildSessionClerk(sessionStore, generateToken)
 
 
-function register(customId, password) {
-  if (accountClerk.isFree(customId)) {
-    const accountId = accountClerk.add(customId, password)
-    if (accountId) return accountId
-  }
-}
-
-function startSession(customId, password) {
-  const accountId = accountClerk.check(customId, password)
-  if (accountId) {
-    const {sessionId, token} = sessionClerk.add(accountId)
-    return {sessionId, token}
-  }
-}
-
-function continueSession(id, token) {
-  const accountId = sessionClerk.check(id, token)
-  if (accountId) {
-    const customId = accountClerk.whoIs(accountId)
-    return {accountId, customId}
-  }
-}
+export const authority = buildAuthority(accountClerk, sessionClerk)

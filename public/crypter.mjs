@@ -1,4 +1,4 @@
-export const cryptoClerk = {hash, verify}
+export const crypter = {hash, verify}
 
 
 function hash(password) {
