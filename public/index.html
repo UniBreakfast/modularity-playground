@@ -7,15 +7,19 @@
   <title>home page</title>
 
   <script>
-    Promise.all([
-      import('./authority/authority.mjs'),
-      import('./authority/testAuthority.mjs')
-    ]).then(([{authority, accounts, sessions}, {testAuthority}]) => {
+    importThen(['./authority/authority.mjs', './authority/testAuthority.mjs'],
+      ([{authority, accounts, sessions}, {testAuthority}]) => {
 
-      testAuthority(authority)
+        testAuthority(authority)
 
-      expose({authority, accounts, sessions})
-    })
+        expose({authority, accounts, sessions})
+
+      }
+    )
+
+    function importThen(paths, fn) {
+      Promise.all(paths.map(p => import(p))).then(fn)
+    }
 
     function expose(vars={}) { Object.assign(window, vars) }
   </script>
