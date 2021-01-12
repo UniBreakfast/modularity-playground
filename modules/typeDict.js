@@ -15,6 +15,8 @@ const types = {
   svg: 'image/svg+xml'+utf,
   css: 'text/css'+utf,
   js: 'text/javascript'+utf,
+  cjs: 'text/javascript'+utf,
+  mjs: 'text/javascript'+utf,
   json: 'application/json'+utf,
   xml: 'application/xml'+utf,
   ico: 'image/x-icon',
