@@ -7,11 +7,17 @@
   <title>home page</title>
 
   <script>
-    Promise.all([import('./authority.mjs'), import('./testAuthority.mjs')])
-      .then(([{authority}, {testAuthority}]) => {
-        testAuthority(authority)
-        window.authority = authority
-      })
+    Promise.all([
+      import('./authority/authority.mjs'),
+      import('./authority/testAuthority.mjs')
+    ]).then(([{authority, accounts, sessions}, {testAuthority}]) => {
+
+      testAuthority(authority)
+
+      expose({authority, accounts, sessions})
+    })
+
+    function expose(vars={}) { Object.assign(window, vars) }
   </script>
 </head>
 

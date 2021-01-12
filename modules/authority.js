@@ -1,4 +1,4 @@
-const promisedAuthority = import('../public/authority.mjs')
+const promisedAuthority = import('../public/authority/authority.mjs')
 
 
 module.exports = function buildAuthority() {
