@@ -27,8 +27,18 @@ tabbuttons {
 
 tabbuttons>button:disabled {
   background: none;
-  border: none;
+  border-color: transparent;
   color: currentColor;
+}
+
+tabbuttons>button:disabled {
+  background: none;
+  border-color: transparent;
+  color: currentColor;
+}
+tabbuttons>button[active] {
+  border-color: transparent;
+  filter: contrast(1.05);
 }
 
 tabs, tab {

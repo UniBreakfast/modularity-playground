@@ -53,12 +53,39 @@ class Tabs {
   }
 
   goTo(index) {
-    this.tabbuttons.forEach((btn, i) => btn.disabled = i==index)
+    this.tabbuttons.forEach((btn, i) => {
+      btn.disabled = i==index
+      btn.removeAttribute('active')
+    })
     this.tabs.forEach((tab, i) => tab.hidden = i!=index)
   }
 
   goToo(index) {
+    const tab = this.tabs[index]
+    if (!tab.hidden) return
+    tab.hidden = false
 
+    const disabledBtn = this.tabbuttons.find(btn => btn.disabled)
+    if (disabledBtn) {
+      disabledBtn.setAttribute('active', '')
+      disabledBtn.disabled = false
+    }
+    this.tabbuttons[index].setAttribute('active', '')
+  }
+
+  leave(index) {
+    const tab = this.tabs[index]
+    if (tab.hidden || this.tabbuttons.find(btn => btn.disabled)) return
+
+    const activeBtns = this.tabbuttons.filter(btn => btn.hasAttribute('active'))
+    if (activeBtns.length == 2) {
+      this.goTo(this.tabbuttons.findIndex((btn, i) =>
+        i!=index && btn.hasAttribute('active')))
+    }
+    else {
+      tab.hidden = true
+      this.tabbuttons[index].removeAttribute('active')
+    }
   }
 
   assignHandlers() {
