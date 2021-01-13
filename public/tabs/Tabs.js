@@ -90,8 +90,13 @@ class Tabs {
 
   assignHandlers() {
     const [tabbuttons] = this.tabgroup.children
-    tabbuttons.addEventListener('click', ({target}) => {
-      if (target != tabbuttons) this.goTo(this.tabbuttons.indexOf(target))
+    tabbuttons.addEventListener('click', ({target, ctrlKey}) => {
+      if (target == tabbuttons) return
+      const index = this.tabbuttons.indexOf(target)
+      if (ctrlKey)
+        this.tabs[index].hidden ? this.goToo(index) : this.leave(index)
+      else this.goTo(index)
+      target.blur()
     })
   }
 }
