@@ -13,6 +13,7 @@ class Tabs {
     if (className) this.className = className
 
     this.render()
+    this.assignHandlers()
   }
 
   render() {
@@ -49,5 +50,19 @@ class Tabs {
     tabs.forEach((tab, i) => tab.hidden = this.active != i)
 
     Object.assign(this, {tabgroup, tabbuttons, tabs})
+  }
+
+  goto(index) {
+    this.tabbuttons.forEach((btn, i) =>
+      i==index ? btn.disabled = true : btn.removeAttribute('disabled'))
+    this.tabs.forEach((tab, i) =>
+      i==index ? tab.removeAttribute('hidden') : tab.hidden = true)
+  }
+
+  assignHandlers() {
+    const [tabbuttons] = this.tabgroup.children
+    tabbuttons.addEventListener('click', ({target}) => {
+      if (target != tabbuttons) this.goto(this.tabbuttons.indexOf(target))
+    })
   }
 }
