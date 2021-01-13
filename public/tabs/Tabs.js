@@ -52,17 +52,19 @@ class Tabs {
     Object.assign(this, {tabgroup, tabbuttons, tabs})
   }
 
-  goto(index) {
-    this.tabbuttons.forEach((btn, i) =>
-      i==index ? btn.disabled = true : btn.removeAttribute('disabled'))
-    this.tabs.forEach((tab, i) =>
-      i==index ? tab.removeAttribute('hidden') : tab.hidden = true)
+  goTo(index) {
+    this.tabbuttons.forEach((btn, i) => btn.disabled = i==index)
+    this.tabs.forEach((tab, i) => tab.hidden = i!=index)
+  }
+
+  goToo(index) {
+
   }
 
   assignHandlers() {
     const [tabbuttons] = this.tabgroup.children
     tabbuttons.addEventListener('click', ({target}) => {
-      if (target != tabbuttons) this.goto(this.tabbuttons.indexOf(target))
+      if (target != tabbuttons) this.goTo(this.tabbuttons.indexOf(target))
     })
   }
 }
