@@ -1,0 +1,51 @@
+tabgroup, tabbuttons, tabs {
+  display: flex;
+  gap: 10px;
+}
+
+tabgroup[side="top"] {
+  flex-direction: column;
+}
+tabgroup[side="left"] {
+  flex-direction: row;
+}
+tabgroup[side="right"] {
+  flex-direction: row-reverse;
+}
+tabgroup[side="bottom"] {
+  flex-direction: column-reverse;
+}
+
+tabgroup[side="left"]>tabbuttons, tabgroup[side="left"]>tabs,
+tabgroup[side="right"]>tabbuttons, tabgroup[side="right"]>tabs {
+  flex-direction: column;
+}
+
+tabbuttons {
+  justify-content: center;
+}
+
+tabbuttons>button:disabled {
+  background: none;
+  border-color: transparent;
+  color: currentColor;
+}
+
+tabbuttons>button:disabled {
+  background: none;
+  border-color: transparent;
+  color: currentColor;
+}
+tabbuttons>button[active] {
+  border-color: transparent;
+  filter: contrast(1.05);
+}
+
+tabs, tab {
+  flex-grow: 1;
+}
+
+tabgroup {
+  width: 100%;
+  height: 100%;
+}
