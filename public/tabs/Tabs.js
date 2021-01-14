@@ -40,7 +40,7 @@ class Tabs {
   }
 
   assignHandlers() {
-    const [tabbuttons] = this.tabgroup.children
+    const [tabbuttons, tabs] = this.tabgroup.children
     tabbuttons.addEventListener('click', ({target, ctrlKey}) => {
       if (target == tabbuttons) return
       const index = this.tabbuttons.indexOf(target)
@@ -49,9 +49,13 @@ class Tabs {
       else this.goTo(index)
       target.blur()
     })
+    tabs.addEventListener('mousedown', (e) => {
+      if (e.target == tabs) this.beginResize(e[this.getAxis().main])
+    })
   }
 
   goTo(...indices) {
+    this.dropBasis()
     const [index, ...rest] = indices
     this.tabbuttons.forEach((btn, i) => {
       btn.disabled = i==index
@@ -62,6 +66,7 @@ class Tabs {
   }
 
   goToo(index) {
+    this.dropBasis()
     const tab = this.tabs[index]
     if (!tab.hidden) return
     tab.hidden = false
@@ -75,6 +80,7 @@ class Tabs {
   }
 
   leave(index) {
+    this.dropBasis()
     const tab = this.tabs[index]
     if (tab.hidden || this.tabbuttons.find(btn => btn.disabled)) return
 
@@ -89,6 +95,76 @@ class Tabs {
   }
 
   shiftSplit(index, shift) {
+    const tabsToResize = [this.tabs[index],
+      this.tabs.slice(index+1).find(tab => !tab.hidden)]
+    const tabsToSaveSize =
+      this.tabs.filter(tab => !tab.hidden && !tabsToResize.includes(tab))
 
+    const side = this.getAxis().mainSize
+
+    const resizeValues =
+      [tabsToResize[0][side] + shift, tabsToResize[1][side] - shift]
+    const sizeValues = tabsToSaveSize.map(tab => tab[side])
+
+    tabsToResize.map((tab, i) => tab.style.flexBasis = resizeValues[i]+'px')
+    tabsToSaveSize.map((tab, i) => tab.style.flexBasis = sizeValues[i]+'px')
+  }
+
+  dropBasis() {
+    this.tabs.forEach(tab => tab.style.flexBasis = null)
+  }
+
+  beginResize(coord) {
+    const {main, cross, mainSide, crossSide} = this.getAxis()
+    let tabs = this.tabs.filter(tab => !tab.hidden)
+    let index =
+      tabs.findIndex(tab => tab.getBoundingClientRect()[main] >= coord)
+    tabs = tabs.slice(index - 1, index + 1)
+    index = this.tabs.indexOf(tabs[0])
+
+    const handleMove = e => {
+      const rects = tabs.map(tab => tab.getBoundingClientRect())
+      if (e[cross] < rects[0][cross] ||
+          e[cross] > rects[0][cross] + rects[0][crossSide]) stopResize()
+      else if (e[main] >= rects[0][main] + rects[0][mainSide] &&
+               e[main] <= rects[1][main]) return
+      else if (e[main] <= rects[0][main] + 5)
+        this.leave(this.tabs.indexOf(tabs[0])),  stopResize()
+      else if (e[main] >= rects[1][main] + rects[1][mainSide] - 5)
+        this.leave(this.tabs.indexOf(tabs[1])),  stopResize()
+      else if (e[main] > rects[1][main])
+        this.shiftSplit(index, e[main] - rects[1][main])
+      else this.shiftSplit(index, e[main] - rects[0][main] - rects[0][mainSide])
+    }
+    const stopResize = () => {
+      tabs.forEach(tab => tab.style.pointerEvents = null)
+      body.style.userSelect = null
+      body.removeEventListener('mousemove', handleMove)
+      body.removeEventListener('mouseup', stopResize)
+    }
+    const {body} = document
+    tabs.forEach(tab => tab.style.pointerEvents = 'none')
+    body.style.userSelect = 'none'
+    body.addEventListener('mousemove', handleMove)
+    body.addEventListener('mouseup', stopResize)
+  }
+
+  getAxis() {
+    return ['left', 'right'].includes(this.tabgroup.getAttribute('side'))
+      ? {main: 'y', cross: 'x', mainSide: 'height', crossSide: 'width',
+      mainSize: 'clientHeight', crossSize: 'clientWidth'}
+      : {main: 'x', cross: 'y', mainSide: 'width', crossSide: 'height',
+      mainSize: 'clientWidth', crossSize: 'clientHeight'}
   }
 }
+
+/*
+
+выбрать горизонталь / вертикаль, координату
+определить пару изменяемых вкладок
+обработчик отпускания
+обработчик перемещения
+повесить обработчики на бади
+
+
+*/
