@@ -123,7 +123,8 @@ class Tabs {
     index = this.tabs.indexOf(tabs[0])
 
     const handleMove = e => {
-      const rects = tabs.map(tab => tab.getBoundingClientRect())
+      const rects = tabs.map(tab => Object.assign(tab.getBoundingClientRect(),
+        {width: tab.clientWidth, height: tab.clientHeight}))
       if (e[cross] < rects[0][cross] ||
           e[cross] > rects[0][cross] + rects[0][crossSide]) stopResize()
       else if (e[main] >= rects[0][main] + rects[0][mainSide] &&
