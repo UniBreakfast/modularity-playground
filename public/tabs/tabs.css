@@ -43,9 +43,21 @@ tabbuttons>button[active] {
 
 tabs, tab {
   flex-grow: 1;
+  overflow: auto;
 }
 
 tabgroup {
   width: 100%;
   height: 100%;
+}
+
+tabgroup[side="left"]>tabs, tabgroup[side="right"]>tabs {
+  cursor: row-resize;
+}
+tabgroup[side="top"]>tabs, tabgroup[side="bottom"]>tabs {
+  cursor: col-resize;
+}
+
+tab {
+  cursor: default;
 }

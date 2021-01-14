@@ -9,7 +9,7 @@ const tabs2 = new Tabs(document.querySelector('tab>tabs'), {
   id: 'level2',
 })
 const tabs3 = new Tabs(document.querySelector('tab>tabs'), {
-  active: 2,
+  active: [2, 3, 4],
   side: 'bottom',
   id: 'level3',
 })
