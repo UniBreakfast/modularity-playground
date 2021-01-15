@@ -20,7 +20,7 @@ class Tabs {
     const tabgroup = document.createElement('tabgroup')
     tabgroup.innerHTML = `
       <tabbuttons>
-        ${ this.titles.map(title => `<button>${title}</button>`).join('') }
+        ${ this.titles.map(t => `<button><span>${t}</span></button>`).join('') }
       </tabbuttons>
       ${ this.tabs ? '' : `
       <tabs>
@@ -156,6 +156,10 @@ class Tabs {
     body.style.userSelect = 'none'
     body.addEventListener('mousemove', handleMove)
     body.addEventListener('mouseup', stopResize)
+  }
+
+  beginMove(index) {
+
   }
 
   getAxis() {

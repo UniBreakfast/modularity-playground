@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+}
+
+body>tabgroup {
+  min-height: 70vh;
+  max-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+tabgroup:not(.sideway)[side="left"]>tabbuttons,
+tabgroup:not(.sideway)[side="right"]>tabbuttons {
+  flex: 0 1 45px;
+}
+
+tabgroup.sideway[side="left"]>tabbuttons>button>span,
+tabgroup.sideway[side="right"]>tabbuttons>button>span {
+  writing-mode: tb;
+}
+tabgroup.sideway[side="left"]>tabbuttons>button>span {
+  transform: rotate(180deg);
+}
