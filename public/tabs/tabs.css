@@ -24,6 +24,9 @@ tabgroup[side="right"]>tabbuttons, tabgroup[side="right"]>tabs {
 tabbuttons {
   justify-content: center;
 }
+tabbuttons>button>span {
+  pointer-events: none;
+}
 
 tabbuttons>button:disabled {
   background: none;

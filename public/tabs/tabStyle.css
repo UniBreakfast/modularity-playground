@@ -56,6 +56,7 @@ tabgroup[side="left"]>tabbuttons>button[active] {
 }
 
 tabbuttons>button {
+  padding: 4px 7px;
   background: #ccc4;
 }
 tabbuttons>button:disabled, tabbuttons>button[active] {
