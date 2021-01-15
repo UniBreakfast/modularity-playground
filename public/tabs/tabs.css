@@ -1,6 +1,11 @@
-tabgroup, tabbuttons, tabs {
+tabgroup, tabbuttons, tabs>div {
   display: flex;
   gap: 10px;
+}
+
+tabgroup {
+  width: 100%;
+  height: 100%;
 }
 
 tabgroup[side="top"] {
@@ -16,8 +21,8 @@ tabgroup[side="bottom"] {
   flex-direction: column-reverse;
 }
 
-tabgroup[side="left"]>tabbuttons, tabgroup[side="left"]>tabs,
-tabgroup[side="right"]>tabbuttons, tabgroup[side="right"]>tabs {
+tabgroup[side="left"]>tabbuttons, tabgroup[side="left"]>tabs>div,
+tabgroup[side="right"]>tabbuttons, tabgroup[side="right"]>tabs>div {
   flex-direction: column;
 }
 
@@ -34,33 +39,29 @@ tabbuttons>button:disabled {
   color: currentColor;
 }
 
-tabbuttons>button:disabled {
-  background: none;
-  border-color: transparent;
-  color: currentColor;
-}
 tabbuttons>button[active] {
   border-color: transparent;
   filter: contrast(1.05);
 }
 
-tabs, tab {
+tabs {
   flex-grow: 1;
-  overflow: auto;
 }
-
-tabgroup {
+tabs>div {
+  overflow: auto;
   width: 100%;
   height: 100%;
 }
 
-tabgroup[side="left"]>tabs, tabgroup[side="right"]>tabs {
+tabgroup[side="left"]>tabs>div, tabgroup[side="right"]>tabs>div {
   cursor: row-resize;
 }
-tabgroup[side="top"]>tabs, tabgroup[side="bottom"]>tabs {
+tabgroup[side="top"]>tabs>div, tabgroup[side="bottom"]>tabs>div {
   cursor: col-resize;
 }
 
 tab {
+  flex-grow: 1;
+  overflow: auto;
   cursor: default;
 }

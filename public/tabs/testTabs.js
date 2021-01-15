@@ -12,7 +12,7 @@ const tabs2 = new Tabs(document.querySelector('tab>tabs'), {
 })
 const tabs3 = new Tabs(document.querySelector('tab>tabs'), {
   active: [2, 3],
-  side: 'right',
+  side: 'bottom',
   id: 'level3',
 })
 // tabs3.shiftSplit(2, -130)

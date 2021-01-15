@@ -24,16 +24,19 @@ class Tabs {
       </tabbuttons>
       ${ this.tabs ? '' : `
       <tabs>
-        ${ `<tab hidden></tab>`.repeat(this.titles.length) }
+        <div>${ `<tab hidden></tab>`.repeat(this.titles.length) }</div>
       </tabs>
       `}
     `
     if (this.tabs) {
       if (this.tabs.parentElement) this.tabs.replaceWith(tabgroup)
       tabgroup.append(this.tabs)
+      const div = document.createElement('div')
+      div.append(...this.tabs.children)
+      this.tabs.append(div)
     }
     const tabbuttons = [...tabgroup.children[0].children]
-    const tabs = [...tabgroup.children[1].children]
+    const tabs = [...tabgroup.children[1].children[0].children]
     tabs.forEach(tab => tab.removeAttribute('title'))
 
     Object.assign(this, {tabgroup, tabbuttons, tabs})
@@ -49,8 +52,9 @@ class Tabs {
       else this.goTo(index)
       target.blur()
     })
-    tabs.addEventListener('mousedown', (e) => {
-      if (e.target == tabs) this.beginResize(e[this.getAxis().main])
+    const div = tabs.children[0]
+    div.addEventListener('mousedown', (e) => {
+      if (e.target == div) this.beginResize(e[this.getAxis().main])
     })
   }
 

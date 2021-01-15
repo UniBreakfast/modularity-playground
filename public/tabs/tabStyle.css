@@ -66,8 +66,5 @@ tabbuttons>button:disabled, tabbuttons>button[active] {
 tabs {
   border: 1px solid;
   border-radius: var(--tab-radius);
-}
-
-tabs {
   padding: 9px 12px;
 }
