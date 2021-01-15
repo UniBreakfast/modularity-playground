@@ -11,7 +11,7 @@ body>tabgroup {
 
 tabgroup:not(.sideway)[side="left"]>tabbuttons,
 tabgroup:not(.sideway)[side="right"]>tabbuttons {
-  flex: 0 1 45px;
+  flex: 0 0 45px;
 }
 
 tabgroup.sideway[side="left"]>tabbuttons>button>span,
