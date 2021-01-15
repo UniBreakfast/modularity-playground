@@ -100,18 +100,27 @@ class Tabs {
     const tabsToSaveSize =
       this.tabs.filter(tab => !tab.hidden && !tabsToResize.includes(tab))
 
-    const side = this.getAxis().mainSize
+    const {mainSize, cross, crossSize, crossScroll} = this.getAxis()
 
     const resizeValues =
-      [tabsToResize[0][side] + shift, tabsToResize[1][side] - shift]
-    const sizeValues = tabsToSaveSize.map(tab => tab[side])
+      [tabsToResize[0][mainSize] + shift, tabsToResize[1][mainSize] - shift]
+    const sizeValues = tabsToSaveSize.map(tab => tab[mainSize])
 
     tabsToResize.map((tab, i) => tab.style.flexBasis = resizeValues[i]+'px')
     tabsToSaveSize.map((tab, i) => tab.style.flexBasis = sizeValues[i]+'px')
+
+    const tabs = tabsToResize.concat(tabsToSaveSize)
+    if (tabs.some(tab => tab[crossScroll] > tab[crossSize]))
+      tabs.forEach(tab => tab.style['overflow'+cross.toUpperCase()] = 'scroll')
+    else tabs.forEach(tab => tab.style['overflow'+cross.toUpperCase()] = null)
   }
 
   dropBasis() {
-    this.tabs.forEach(tab => tab.style.flexBasis = null)
+    const overflowCross = 'overflow'+this.getAxis().cross.toUpperCase()
+    this.tabs.forEach(tab => {
+      tab.style.flexBasis = null
+      tab.style[overflowCross] = null
+    })
   }
 
   beginResize(coord) {
@@ -152,19 +161,10 @@ class Tabs {
   getAxis() {
     return ['left', 'right'].includes(this.tabgroup.getAttribute('side'))
       ? {main: 'y', cross: 'x', mainSide: 'height', crossSide: 'width',
-      mainSize: 'clientHeight', crossSize: 'clientWidth'}
+      mainSize: 'clientHeight', crossSize: 'clientWidth',
+      mainScroll: 'scrollHeight', crossScroll: 'scrollWidth'}
       : {main: 'x', cross: 'y', mainSide: 'width', crossSide: 'height',
-      mainSize: 'clientWidth', crossSize: 'clientHeight'}
+      mainSize: 'clientWidth', crossSize: 'clientHeight',
+      mainScroll: 'scrollWidth', crossScroll: 'scrollHeight'}
   }
 }
-
-/*
-
-выбрать горизонталь / вертикаль, координату
-определить пару изменяемых вкладок
-обработчик отпускания
-обработчик перемещения
-повесить обработчики на бади
-
-
-*/
