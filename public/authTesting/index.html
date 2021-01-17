@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Authority Testing Environment</title>
+
+  <link rel="stylesheet" href="/public/tabs/tabs.css">
+  <link rel="stylesheet" href="/public/tabs/tabStyle.css">
+  <link rel="stylesheet" href="/public/tabs/style.css">
+
+  <link rel="stylesheet" href="/public/authTesting/register.css">
+  <link rel="stylesheet" href="/public/authTesting/login.css">
+
+  <script src="/public/tabs/Tabs.js"></script>
+  <script src="/public/authTesting/script.js" defer></script>
+</head>
+
+<body>
+  <tabs>
+    <tab title="register">
+      <form action=":javascript" class="registration">
+        <h3>Register</h3>
+        <label>
+          Custom ID
+          <input type="text" placeholder="username or email">
+        </label>
+        <label>
+          Password
+          <input type="password">
+        </label>
+        <div>
+          <button>Register</button>
+          <button>Reset</button>
+        </div>
+      </form>
+    </tab>
+
+    <tab title="log in">
+      <form action=":javascript" class="log-in">
+        <h3>Log In</h3>
+        <label>
+          Custom ID
+          <input type="text" placeholder="username or email">
+        </label>
+        <label>
+          Password
+          <input type="password">
+        </label>
+        <div>
+          <button>Log In</button>
+          <button>Reset</button>
+        </div>
+      </form>
+    </tab>
+
+    <tab title="check session">
+
+    </tab>
+
+    <tab title="answers">
+
+    </tab>
+
+    <tab title="string cache">
+
+    </tab>
+
+    <tab title="accounts">
+
+    </tab>
+
+    <tab title="sessions">
+
+    </tab>
+  </tabs>
+</body>
+
+</html>
