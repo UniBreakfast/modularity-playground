@@ -12,6 +12,7 @@
 
   <link rel="stylesheet" href="/public/authTesting/register.css">
   <link rel="stylesheet" href="/public/authTesting/login.css">
+  <link rel="stylesheet" href="/public/authTesting/check.css">
 
   <script src="/public/tabs/Tabs.js"></script>
   <script src="/public/authTesting/script.js" defer></script>
@@ -20,7 +21,7 @@
 <body>
   <tabs>
     <tab title="register">
-      <form action=":javascript" class="registration">
+      <form action="javascript:" class="registration">
         <h3>Register</h3>
         <label>
           Custom ID
@@ -32,13 +33,13 @@
         </label>
         <div>
           <button>Register</button>
-          <button>Reset</button>
+          <button type="reset">Reset</button>
         </div>
       </form>
     </tab>
 
     <tab title="log in">
-      <form action=":javascript" class="log-in">
+      <form action="javascript:" class="log-in">
         <h3>Log In</h3>
         <label>
           Custom ID
@@ -50,13 +51,27 @@
         </label>
         <div>
           <button>Log In</button>
-          <button>Reset</button>
+          <button type="reset">Reset</button>
         </div>
       </form>
     </tab>
 
     <tab title="check session">
-
+      <form action="javascript:" class="sess-check">
+        <h3>Check Session</h3>
+        <label>
+          Session ID
+          <input type="text">
+        </label>
+        <label>
+          Token
+          <input type="text">
+        </label>
+        <div>
+          <button>Check</button>
+          <button type="reset">Reset</button>
+        </div>
+      </form>
     </tab>
 
     <tab title="answers">

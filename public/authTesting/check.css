@@ -1,0 +1,21 @@
+form.sess-check {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  gap: 10px;
+}
+
+form.sess-check>h3 {
+  text-align: center;
+}
+
+form.sess-check>label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form.sess-check>div {
+  display: flex;
+  justify-content: space-evenly;
+}
