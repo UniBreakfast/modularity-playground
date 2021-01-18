@@ -1,3 +1,3 @@
 const tabs = new Tabs(document.querySelector('tabs'), {
-  active: [1,2,3,4]
+  active: [3,4,5,6]
 })
