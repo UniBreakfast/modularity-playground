@@ -1,0 +1,29 @@
+ul.answers {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: auto;
+}
+
+ul.answers>li {
+  background: #f1f1f1;
+  padding: 3px 8px;
+}
+
+ul.answers .string {
+  color: brown;
+  font: bold 18px monospace;
+}
+
+ul.answers .string:before, ul.answers .string:after {
+  content: '"';
+}
+
+ul.answers {
+
+}
+
+ul.answers {
+
+}
