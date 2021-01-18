@@ -10,6 +10,7 @@ table.accounts th, table.accounts td {
   border: 1px solid black;
   padding: 4px 9px;
   font: 17px monospace;
+  text-align: center;
 }
 
 table.accounts .string {
