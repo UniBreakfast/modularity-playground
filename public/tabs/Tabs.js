@@ -162,6 +162,26 @@ class Tabs {
     body.addEventListener('mouseup', stopResize)
   }
 
+  moveTab(from, to) {
+    const [tabbuttons, tabs] = this.tabgroup.children
+    const div = tabs.children[0]
+
+    tabbuttons.append(
+      ...this.tabbuttons.slice(from + 1, to + 1),
+      this.tabbuttons[from],
+      ...this.tabbuttons.slice(to + 1)
+    )
+
+    div.append(
+      ...this.tabs.slice(from + 1, to + 1),
+      this.tabs[from],
+      ...this.tabs.slice(to + 1)
+    )
+
+    this.tabbuttons = [...tabbuttons.children]
+    this.tabs = [...div.children]
+  }
+
   beginMove(index) {
 
   }
