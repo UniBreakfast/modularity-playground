@@ -98,6 +98,10 @@ export class Tabs {
     }
   }
 
+  split(...portions) {
+    this.tabs.filter(tab => !tab.hidden).forEach((tab, i) => tab.style.flexBasis = portions[i]+'%')
+  }
+
   shiftSplit(index, shift) {
     const tabsToResize = [this.tabs[index],
       this.tabs.slice(index+1).find(tab => !tab.hidden)]

@@ -1,10 +1,12 @@
 import {authority, accounts, sessions} from '../authority/authority.mjs'
 import {Accounts} from './Accounts.js'
+import {Sessions} from './Sessions.js'
 import {Form} from './Form.js'
 import {Tabs} from '../tabs/Tabs.js'
+import { Answers } from './Answers.js'
 
 
-const tabs = new Tabs(document.querySelector('tabs'),
+const tabs = window.tabs = new Tabs(document.querySelector('tabs'),
   {active: [0,1,2]})
 const forms = new Tabs(document.querySelector('tab>tabs'),
   {active: [0,1,2], side: "left", className: 'sideway'})
@@ -13,6 +15,8 @@ const lines = new Tabs(document.querySelector('tab>tabs'),
 const tables = new Tabs(document.querySelector('tab>tabs'),
   {active: [0,1], side: "right", className: 'sideway'})
 
+tabs.split(27, 40, 37)
+lines.split(75, 25)
 
 
 const regForm = new Form('registration', forms.tabs[0])
@@ -26,31 +30,28 @@ const checkForm = new Form('sess-check', forms.tabs[2])
 checkForm
   .prepare('Check Session', ['Session ID', 'Token'], 'Check', handleCheck)
 
+const answers = new Answers(lines.tabs[0])
 
 const accountTable = new Accounts(accounts, tables.tabs[0])
-
-
-tabs.shiftSplit(0, 30)
-tabs.shiftSplit(1, 63)
-lines.shiftSplit(0, -100)
+const sessionTable = new Sessions(sessions, tables.tabs[1])
 
 
 function handleRegister(...args) {
-  authority.register(...args)
+  answers.add('register', authority.register(...args))
   accountTable.render()
   regForm.form.reset()
   regForm.form.querySelector('input').focus()
 }
 
 function handleLogin(...args) {
-  authority.startSession(...args)
+  answers.add('login', authority.startSession(...args))
   sessionTable.render()
   loginForm.form.reset()
   loginForm.form.querySelector('input').focus()
 }
 
 function handleCheck(...args) {
-  authority.checkSession(...args)
+  answers.add('check', authority.continueSession(+args[0], args[1]))
   checkForm.form.reset()
   checkForm.form.querySelector('input').focus()
 }
