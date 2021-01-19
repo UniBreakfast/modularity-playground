@@ -1,9 +1,10 @@
 import {authority, accounts, sessions} from '../authority/authority.mjs'
+import {Form} from './Form.js'
+import { Answers } from './Answers.js'
+import { Strings } from './Strings.js'
 import {Accounts} from './Accounts.js'
 import {Sessions} from './Sessions.js'
-import {Form} from './Form.js'
 import {Tabs} from '../tabs/Tabs.js'
-import { Answers } from './Answers.js'
 
 
 const tabs = window.tabs = new Tabs(document.querySelector('tabs'),
@@ -30,10 +31,22 @@ const checkForm = new Form('sess-check', forms.tabs[2])
 checkForm
   .prepare('Check Session', ['Session ID', 'Token'], 'Check', handleCheck)
 
-const answers = new Answers(lines.tabs[0])
+tabs.tabgroup.querySelectorAll('input').forEach(input =>
+  input.addEventListener('focus', () => lastInput = input))
+let lastInput = document.querySelector('input')
 
-const accountTable = new Accounts(accounts, tables.tabs[0])
-const sessionTable = new Sessions(sessions, tables.tabs[1])
+const answers = new Answers(lines.tabs[0], str => strings.add(str))
+const strings = new Strings(lines.tabs[1], str => {
+  lastInput.value = str
+  lastInput.focus()
+})
+
+strings.add('abc')
+
+const accountTable =
+  new Accounts(accounts, tables.tabs[0], str => strings.add(str))
+const sessionTable =
+  new Sessions(sessions, tables.tabs[1], str => strings.add(str))
 
 
 function handleRegister(...args) {

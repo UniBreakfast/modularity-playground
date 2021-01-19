@@ -3,6 +3,7 @@ form.log-in {
   flex-direction: column;
   width: 270px;
   gap: 10px;
+  margin: auto;
 }
 
 form.log-in>h3 {

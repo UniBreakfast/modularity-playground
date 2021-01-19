@@ -1,19 +1,22 @@
 export class Answers {
-  constructor (parent) {
+  constructor (parent, outputFn) {
     this.render()
-    this.assignHandlers()
+    this.assignHandlers(outputFn)
     parent.append(this.ul)
   }
 
   render() {
     this.ul = document.createElement('ul')
     this.ul.className = 'answers'
-    this.items = this.ul.children
   }
 
-  assignHandlers() {
-    this.ul.addEventListener('click', ({target, shiftKey}) => {
-      if (shiftKey && target != this.ul) target.closest('li').remove()
+  assignHandlers(outputFn) {
+    this.ul.addEventListener('click', ({target, altKey, shiftKey}) => {
+      if (target != this.ul) {
+        if (altKey && target.classList.contains('string'))
+          outputFn(target.innerText)
+        else if (shiftKey) target.closest('li').remove()
+      }
     })
   }
 

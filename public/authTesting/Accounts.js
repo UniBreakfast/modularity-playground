@@ -1,7 +1,8 @@
 export class Accounts {
-  constructor (arr, parent) {
+  constructor (arr, parent, outputFn) {
     Object.assign(this, {arr})
     this.render()
+    this.listen(outputFn)
     parent.append(this.table)
   }
 
@@ -29,5 +30,18 @@ export class Accounts {
         <td class="string">${hash}</td>
       </tr>
     `).join('')
+  }
+
+  listen(outputFn) {
+    this.tbody.addEventListener('click', ({target, altKey, shiftKey}) => {
+      if (altKey && target.classList.contains('string'))
+        outputFn(target.innerText)
+      if (shiftKey) {
+        const row = target.closest('tr')
+        const index = row.rowIndex - 1
+        this.arr.splice(index, 1)
+        row.remove()
+      }
+    })
   }
 }

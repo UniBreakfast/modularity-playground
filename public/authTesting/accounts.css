@@ -1,5 +1,6 @@
 table.accounts {
   border-collapse: collapse;
+  margin: auto;
 }
 
 table.accounts>tbody>tr:nth-child(odd) {

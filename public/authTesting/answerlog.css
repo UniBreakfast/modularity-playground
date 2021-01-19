@@ -4,6 +4,7 @@ ul.answers {
   flex-direction: column;
   gap: 5px;
   overflow: auto;
+  margin: auto;
 }
 
 ul.answers>li {

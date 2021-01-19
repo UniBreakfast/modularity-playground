@@ -3,6 +3,7 @@ form.registration {
   flex-direction: column;
   width: 270px;
   gap: 10px;
+  margin: auto;
 }
 
 form.registration>h3 {

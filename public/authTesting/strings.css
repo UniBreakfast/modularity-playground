@@ -5,6 +5,7 @@ ul.strings {
   gap: 5px;
   overflow: auto;
   align-items: flex-start;
+  margin: auto;
 }
 
 ul.strings>li {

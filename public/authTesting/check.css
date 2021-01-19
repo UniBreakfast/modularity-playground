@@ -3,6 +3,7 @@ form.sess-check {
   flex-direction: column;
   width: 270px;
   gap: 10px;
+  margin: auto;
 }
 
 form.sess-check>h3 {

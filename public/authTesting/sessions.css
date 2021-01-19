@@ -1,5 +1,6 @@
 table.sessions {
   border-collapse: collapse;
+  margin: auto;
 }
 
 table.sessions>tbody>tr:nth-child(odd) {
