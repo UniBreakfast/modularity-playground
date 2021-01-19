@@ -1,4 +1,4 @@
-class Tabs {
+export class Tabs {
   constructor (tabs=[], {active=0, side='top', id, classes, className}={}) {
     if (Array.isArray(tabs)) {
       this.titles = tabs

@@ -22,67 +22,16 @@
   <link rel="stylesheet" href="/public/authTesting/accounts.css">
   <link rel="stylesheet" href="/public/authTesting/sessions.css">
 
-  <script src="/public/tabs/Tabs.js"></script>
-  <script src="/public/authTesting/script.js" defer></script>
+  <script src="/public/authTesting/script.js" type="module"></script>
 </head>
 
 <body>
   <tabs>
     <tab title="forms">
       <tabs>
-        <tab title="register">
-          <form action="javascript:" class="registration">
-            <h3>Register</h3>
-            <label>
-              Custom ID
-              <input type="text" placeholder="username or email">
-            </label>
-            <label>
-              Password
-              <input type="text">
-            </label>
-            <div>
-              <button>Register</button>
-              <button type="reset">Reset</button>
-            </div>
-          </form>
-        </tab>
-
-        <tab title="log in">
-          <form action="javascript:" class="log-in">
-            <h3>Log In</h3>
-            <label>
-              Custom ID
-              <input type="text" placeholder="username or email">
-            </label>
-            <label>
-              Password
-              <input type="text">
-            </label>
-            <div>
-              <button>Log In</button>
-              <button type="reset">Reset</button>
-            </div>
-          </form>
-        </tab>
-
-        <tab title="check session">
-          <form action="javascript:" class="sess-check">
-            <h3>Check Session</h3>
-            <label>
-              Session ID
-              <input type="text">
-            </label>
-            <label>
-              Token
-              <input type="text">
-            </label>
-            <div>
-              <button>Check</button>
-              <button type="reset">Reset</button>
-            </div>
-          </form>
-        </tab>
+        <tab title="register"></tab>
+        <tab title="log in"></tab>
+        <tab title="check session"></tab>
       </tabs>
     </tab>
 
@@ -221,42 +170,7 @@
 
     <tab title="tables">
       <tabs>
-        <tab title="accounts">
-          <table class="accounts">
-            <caption>
-              <h3>Accounts</h3>
-            </caption>
-            <thead>
-              <tr>
-                <th>id</th>
-                <th>customId</th>
-                <th>hash</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>12</td>
-                <td class="string">Bobby</td>
-                <td class="string">iowev804f</td>
-              </tr>
-              <tr>
-                <td>13</td>
-                <td class="string">Jimbo</td>
-                <td class="string">8798ssdf</td>
-              </tr>
-              <tr>
-                <td>14</td>
-                <td class="string">The_last_airbender</td>
-                <td class="string">9009df80s98f09ds8fs</td>
-              </tr>
-              <tr>
-                <td>15</td>
-                <td class="string">RobberGood</td>
-                <td class="string">32.,m4.,32m</td>
-              </tr>
-            </tbody>
-          </table>
-        </tab>
+        <tab title="accounts"></tab>
 
         <tab title="sessions">
           <table class="sessions">
