@@ -182,6 +182,30 @@ class Tabs {
     this.tabs = [...div.children]
   }
 
+  swapTabs(indexA, indexB) {
+    const [tabbuttons, tabs] = this.tabgroup.children
+    const div = tabs.children[0]
+
+    if (indexB < indexA) [indexB, indexA] = [indexA, indexB]
+
+    tabbuttons.append(
+      this.tabbuttons[indexB],
+      ...this.tabbuttons.slice(indexA + 1, indexB),
+      this.tabbuttons[indexA],
+      ...this.tabbuttons.slice(indexB + 1)
+    )
+
+    div.append(
+      this.tabs[indexB],
+      ...this.tabs.slice(indexA + 1, indexB),
+      this.tabs[indexA],
+      ...this.tabs.slice(indexB + 1)
+    )
+
+    this.tabbuttons = [...tabbuttons.children]
+    this.tabs = [...div.children]
+  }
+
   beginMove(index) {
 
   }
