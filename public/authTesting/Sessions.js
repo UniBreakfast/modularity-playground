@@ -1,8 +1,7 @@
 export class Sessions {
-  constructor (arr, parent, outputFn, altOutputFn) {
-    Object.assign(this, {arr})
+  constructor (parent, getArrFn) {
+    this.getData = getArrFn
     this.render()
-    this.listen(outputFn, altOutputFn)
     parent.append(this.table)
   }
 
@@ -23,8 +22,8 @@ export class Sessions {
       `
       this.tbody = this.table.tBodies[0]
     }
-    this.tbody.innerHTML = this.arr.map(({id, token, accountId}) => `
-      <tr>
+    this.tbody.innerHTML = this.getData().map(({id, token, accountId}) => `
+      <tr data-id="${id}">
         <td>${id}</td>
         <td class="string">${token}</td>
         <td>${accountId}</td>
@@ -32,13 +31,13 @@ export class Sessions {
     `).join('')
   }
 
-  listen(outputFn, altOutputFn) {
+  listen(delOneFn, outputFn, altOutputFn) {
     this.tbody.addEventListener('click', ({target, altKey, shiftKey}) => {
       if (shiftKey) {
         const row = target.closest('tr')
-        const index = row.rowIndex - 1
-        this.arr.splice(index, 1)
-        row.remove()
+        const id = row.dataset.id
+        const deleted = delOneFn(id)
+        if (deleted) row.remove()
       } else if (target.classList.contains('string'))
         (altKey ? altOutputFn : outputFn)(target.innerText)
   })

@@ -1,7 +1,8 @@
 export class Form {
-  constructor (className, parent) {
+  constructor (className, parent, outputFn) {
     this.render()
     this.form.className = className
+    this.listen(outputFn)
     parent.append(this.form)
   }
 
@@ -16,6 +17,12 @@ export class Form {
         <button></button> <button type="reset">Reset</button>
       </div>
     `
+  }
+
+  listen(outputFn) {
+    this.form.addEventListener('click', ({target, altKey}) => {
+      if (altKey && target.tagName == 'INPUT') outputFn(target.value)
+    })
   }
 
   prepare(title, labels, btnName, handler) {
