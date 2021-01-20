@@ -13,8 +13,8 @@ export class Strings {
   assignHandlers(outputFn) {
     this.ul.addEventListener('click', ({target, altKey, shiftKey}) => {
       if (target != this.ul) {
-        if (altKey) outputFn(target.innerText)
-        else if (shiftKey) target.closest('li').remove()
+        if (shiftKey) target.closest('li').remove()
+        else outputFn(target.innerText)
       }
     })
   }

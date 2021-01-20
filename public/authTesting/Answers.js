@@ -1,7 +1,7 @@
 export class Answers {
-  constructor (parent, outputFn) {
+  constructor (parent, outputFn, altOutputFn) {
     this.render()
-    this.assignHandlers(outputFn)
+    this.assignHandlers(outputFn, altOutputFn)
     parent.append(this.ul)
   }
 
@@ -10,12 +10,12 @@ export class Answers {
     this.ul.className = 'answers'
   }
 
-  assignHandlers(outputFn) {
+  assignHandlers(outputFn, altOutputFn) {
     this.ul.addEventListener('click', ({target, altKey, shiftKey}) => {
       if (target != this.ul) {
-        if (altKey && target.classList.contains('string'))
-          outputFn(target.innerText)
-        else if (shiftKey) target.closest('li').remove()
+        if (shiftKey) target.closest('li').remove()
+        else if (target.classList.contains('string'))
+          (altKey ? altOutputFn : outputFn)(target.innerText)
       }
     })
   }

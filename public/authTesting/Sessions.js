@@ -1,8 +1,8 @@
 export class Sessions {
-  constructor (arr, parent, outputFn) {
+  constructor (arr, parent, outputFn, altOutputFn) {
     Object.assign(this, {arr})
     this.render()
-    this.listen(outputFn)
+    this.listen(outputFn, altOutputFn)
     parent.append(this.table)
   }
 
@@ -32,16 +32,15 @@ export class Sessions {
     `).join('')
   }
 
-  listen(outputFn) {
+  listen(outputFn, altOutputFn) {
     this.tbody.addEventListener('click', ({target, altKey, shiftKey}) => {
-      if (altKey && target.classList.contains('string'))
-        outputFn(target.innerText)
       if (shiftKey) {
         const row = target.closest('tr')
         const index = row.rowIndex - 1
         this.arr.splice(index, 1)
         row.remove()
-      }
-    })
+      } else if (target.classList.contains('string'))
+        (altKey ? altOutputFn : outputFn)(target.innerText)
+  })
   }
 }

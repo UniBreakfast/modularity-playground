@@ -1,10 +1,12 @@
 import {authority, accounts, sessions} from '../authority/authority.mjs'
 import {Form} from './Form.js'
-import { Answers } from './Answers.js'
-import { Strings } from './Strings.js'
+import {Answers} from './Answers.js'
+import {Strings} from './Strings.js'
 import {Accounts} from './Accounts.js'
 import {Sessions} from './Sessions.js'
 import {Tabs} from '../tabs/Tabs.js'
+
+import {fill} from './fill.js'
 
 
 const tabs = window.tabs = new Tabs(document.querySelector('tabs'),
@@ -35,19 +37,29 @@ tabs.tabgroup.querySelectorAll('input').forEach(input =>
   input.addEventListener('focus', () => lastInput = input))
 let lastInput = document.querySelector('input')
 
-const answers = new Answers(lines.tabs[0], str => strings.add(str))
-const strings = new Strings(lines.tabs[1], str => {
-  lastInput.value = str
-  lastInput.focus()
-})
+const answers = new Answers(lines.tabs[0], insert, memo)
+const strings = new Strings(lines.tabs[1], insert)
 
-strings.add('abc')
+
+fill(authority, strings)
+
 
 const accountTable =
-  new Accounts(accounts, tables.tabs[0], str => strings.add(str))
+  new Accounts(accounts, tables.tabs[0], insert, memo)
 const sessionTable =
-  new Sessions(sessions, tables.tabs[1], str => strings.add(str))
+  new Sessions(sessions, tables.tabs[1], insert, memo)
 
+
+
+
+function memo(str) {
+  strings.add(str)
+}
+
+function insert(str) {
+  lastInput.value = str
+  lastInput.focus()
+}
 
 function handleRegister(...args) {
   answers.add('register', authority.register(...args))
