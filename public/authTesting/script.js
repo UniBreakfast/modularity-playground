@@ -84,7 +84,12 @@ function removeAccount(id) {
   accounts.splice(0, Infinity, ...accounts.filter(acc => acc.id != id))
   return true
 }
+
 function removeSession(id) {
   sessions.splice(0, Infinity, ...sessions.filter(sess => sess.id != id))
   return true
+}
+
+function request(endPoint, query) {
+
 }
