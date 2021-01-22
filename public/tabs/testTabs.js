@@ -1,3 +1,5 @@
+import {Tabs} from './Tabs.js'
+
 const tabs1 = new Tabs(document.querySelector('body>tabs'), {
   active: [1, 3],
   side: 'top',

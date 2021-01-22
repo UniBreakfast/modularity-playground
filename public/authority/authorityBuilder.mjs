@@ -6,7 +6,7 @@ export function buildAuthority(accClerk, sessClerk) {
 
 
   function register(customId, password) {
-    if (accClerk.isFree(customId)) {
+    if (customId && accClerk.isFree(customId)) {
       const accountId = accClerk.add(customId, password)
       if (accountId) return accountId
     }

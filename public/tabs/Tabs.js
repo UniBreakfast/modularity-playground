@@ -1,4 +1,4 @@
-class Tabs {
+export class Tabs {
   constructor (tabs=[], {active=0, side='top', id, classes, className}={}) {
     if (Array.isArray(tabs)) {
       this.titles = tabs
@@ -96,6 +96,10 @@ class Tabs {
       tab.hidden = true
       this.tabbuttons[index].removeAttribute('active')
     }
+  }
+
+  split(...portions) {
+    this.tabs.filter(tab => !tab.hidden).forEach((tab, i) => tab.style.flexBasis = portions[i]+'%')
   }
 
   shiftSplit(index, shift) {

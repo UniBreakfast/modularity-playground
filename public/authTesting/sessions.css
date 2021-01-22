@@ -1,0 +1,27 @@
+table.sessions {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+table.sessions>tbody>tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+table.sessions th, table.sessions td {
+  border: 1px solid black;
+  padding: 4px 9px;
+  font: 17px monospace;
+  text-align: center;
+}
+
+table.sessions .string {
+  color: brown;
+}
+
+table.sessions .string:before, table.sessions .string:after {
+  content: '"';
+}
+
+table.sessions th {
+  font-weight: bold;
+}

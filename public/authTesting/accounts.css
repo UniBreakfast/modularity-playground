@@ -1,0 +1,27 @@
+table.accounts {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+table.accounts>tbody>tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+table.accounts th, table.accounts td {
+  border: 1px solid black;
+  padding: 4px 9px;
+  font: 17px monospace;
+  text-align: center;
+}
+
+table.accounts .string {
+  color: brown;
+}
+
+table.accounts .string:before, table.accounts .string:after {
+  content: '"';
+}
+
+table.accounts th {
+  font-weight: bold;
+}

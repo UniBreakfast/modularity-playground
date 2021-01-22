@@ -1,0 +1,22 @@
+form.log-in {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  gap: 10px;
+  margin: auto;
+}
+
+form.log-in>h3 {
+  text-align: center;
+}
+
+form.log-in>label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form.log-in>div {
+  display: flex;
+  justify-content: space-evenly;
+}
