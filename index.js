@@ -9,6 +9,9 @@ require('http').createServer((req, resp) => {
 
 if (req.url == '/poll') handle(req, resp)
 
+else if (req.url == '/broadcast') broadcast(req.headers.message)
+else if (req.url == '/inform') informUser(req.headers.message, req.headers.name)
+
 else resp.end(/* html */`
 <script>
 
