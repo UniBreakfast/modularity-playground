@@ -2,9 +2,10 @@ require('./modules/configLoader')
 
 const server = require('./modules/server')
 const publicServer = require('./modules/publicServer')
+const apiServer = require('./modules/apiServer')
 
 server.port = +process.env.PORT
-server.prepare(publicServer).then(server.run)
+server.prepare(publicServer, apiServer).then(server.run)
 
 // =================================================
 
