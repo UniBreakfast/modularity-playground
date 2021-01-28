@@ -1,7 +1,7 @@
 const serverWrapper = module.exports = {
-  prepare: async prepPublic => {
+  prepare: async (prepPublic, prepAPI) => {
     console.time('preparations took')
-    public = await prepPublic()
+    {[public, api] = await Promise.all([prepPublic(), prepAPI()])}
   },
 
   port: undefined,
@@ -15,18 +15,18 @@ const serverWrapper = module.exports = {
 
 const { createServer } = require("http")
 
-let public = {}
+let public = {}, api = {}
 
 async function handleRequest(req, resp) {
   const { url } = req
 
-  const handler = public[url]
+  const handler = api[url] || public[url]
 
-  if (handler) handler(resp)
+  if (handler) handler(req, resp)
   else {
     resp.statusCode = 404
-    resp.end(url+ ' not found')
-    console.log(url+ ' not found')
+    resp.end(url+' not found')
+    console.log(url+' not found')
   }
 }
 
