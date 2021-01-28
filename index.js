@@ -1,5 +1,5 @@
 const handleDelay = 1000
-const handleTimeout = 4*60*1000
+const handleTimeout = 28*1000
 const requestTimeout = 1*60*1000
 
 const polls = []
