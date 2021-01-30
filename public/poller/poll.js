@@ -21,13 +21,13 @@ class Poll {
   }
 
   send(...messages) {
-    this.resp.end(prepare(messages))
+    respond(this.resp, messages)
     delete this.resp
     this.waitForRequest()
   }
 
   sendTo(resp) {
-    resp.end(prepare(this.messages))
+    respond(resp, this.messages)
     delete this.messages
     this.waitForRequest()
   }
@@ -52,8 +52,8 @@ class Poll {
 module.exports = {handle, broadcast, inform, informClient, informUser}
 
 
-function prepare(obj) {
-  return JSON.stringify(obj)
+function respond(way, msg) {
+  way.end(JSON.stringify(msg))
 }
 
 function extract({headers}) {

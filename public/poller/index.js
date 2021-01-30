@@ -15,7 +15,7 @@ else if (req.url == '/inform') {
 }
 else if (req.url == '/poller.js') {
   resp.setHeader('content-type', 'application/javascript')
-  require('fs').createReadStream('./poller.js').pipe(resp)
+  require('fs').createReadStream('./public/poller/poller.js').pipe(resp)
 }
 
 
