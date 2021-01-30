@@ -1,30 +1,52 @@
-poll()
+const requestDelay = 1000
 
 
-async function poll(id) {
-  const options = id ? [{method: 'GET', headers: {'poll-id': id}}] : []
-  const resp = await fetch('/updates', ...options)
-
-  if (resp.ok) {
-    console.log((await resp.json()).updates)
-    if (!id) id = resp.headers.get('poll-id')
-  } else {
-    console.log(resp.statusText)
+export class Poller extends EventTarget {
+  constructor (name) {
+    super()
+    Object.assign(this, {id: generateId(), name})
+    this.listen()
   }
 
-
-  await sleep(1000)
-
-  poll(id)
+  async listen() {
+    while (true) {
+      const answers = await request(this.id, this.name)
+      if (answers?.length)
+        this.dispatchEvent(new CustomEvent('message', {detail: answers}))
+    }
+  }
 }
 
+/* const poller = new Poller(document.title = prompt('Enter your name:', 'guest'))
 
-function sleep(dur) {
-  return new Promise(resolve => setTimeout(resolve, dur))
+
+
+poller.addEventListener('message', msg => {
+  msg.detail.forEach(message =>
+    document.body.innerHTML += '<p>' + message + '</p>')
+}) */
+
+
+async function request(id, name) {
+  await sleep(requestDelay)
+
+  try {
+    const response = await fetch('/poll',
+      {method: 'GET', headers: {'poll-id': id, 'poll-name': name}})
+    if (response.ok) return response.json()
+  } catch {}
 }
 
-function time() {
-  const date = new Date
-  date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
-  return JSON.stringify(date).slice(12,20)
+function generateId() {
+  const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const {random} = Math
+
+  let token = ''
+  for (let i = 0; i < 13; ++i)
+    token += (i+1)%7 ? chars[random() * 62 | 0] : '-'
+  return token
+}
+
+function sleep(duration) {
+  return new Promise(resolve => setTimeout(resolve, duration))
 }
