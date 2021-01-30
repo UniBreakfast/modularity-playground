@@ -1,4 +1,4 @@
-const pollMaster = require('./pollMaster')
+const pollMaster = require('../../modules/pollMaster')
 const {polls, handle, broadcast, inform, informClient, informUser} = pollMaster
 
 
