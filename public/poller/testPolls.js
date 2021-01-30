@@ -1,4 +1,5 @@
-const {handle, broadcast, inform, informClient, informUser} = require('./poll')
+const pollMaster = require('./pollMaster')
+const {handle, broadcast, inform, informClient, informUser} = pollMaster
 
 
 require('http').createServer((req, resp) => {
