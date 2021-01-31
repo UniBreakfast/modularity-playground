@@ -1,4 +1,4 @@
-import {Tabs} from './Tabs.js'
+import {Tabs} from '../tabs/Tabs.js'
 
 const tabs1 = new Tabs(document.querySelector('body>tabs'), {
   active: [1, 3],

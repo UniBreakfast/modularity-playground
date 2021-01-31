@@ -24,7 +24,7 @@ else if (req.url.match(/\/pollers?\.js/)) {
 else resp.end(/* html */`
 <script>
 
-import('/pollers.js').then(({Poller}) => {
+import('../poller/pollers.js').then(({Poller}) => {
 
   const poller =
     new Poller(document.title = prompt('Enter your name:', 'guest'))

@@ -6,9 +6,9 @@ const serverWrapper = module.exports = {
 
   port: undefined,
 
-  async run() {
+  async run(...pagePaths) {
     const server = createServer(handleRequest)
-    server.listen(serverWrapper.port, reportStart)
+    server.listen(serverWrapper.port, reportStart(...pagePaths))
   }
 }
 
@@ -30,7 +30,11 @@ async function handleRequest(req, resp) {
   }
 }
 
-function reportStart() {
-  console.timeEnd('preparations took')
-  console.log(`Server started on http://localhost:${serverWrapper.port}`)
+function reportStart(...pagePaths) {
+  return function () {
+    console.timeEnd('preparations took')
+    console.log(`Server started on http://localhost:${serverWrapper.port}\n` +
+      pagePaths.map(path => `http://localhost:${serverWrapper.port+path}`)
+        .join('\n'))
+  }
 }
