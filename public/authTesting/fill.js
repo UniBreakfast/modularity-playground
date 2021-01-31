@@ -1,5 +1,5 @@
-export function fill(authority, strings) {
+export async function fill(requestFn, strings) {
   strings.add('aDmInKeY')
-  authority.register('admin', 'aDmInKeY')
-  authority.startSession('admin', 'aDmInKeY')
+  await requestFn('/api/reg', ['admin', 'aDmInKeY'])
+  await requestFn('/api/login', ['admin', 'aDmInKeY'])
 }

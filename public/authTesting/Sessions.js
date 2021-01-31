@@ -2,6 +2,7 @@ export class Sessions {
   constructor (parent, getArrFn) {
     this.getData = getArrFn
     this.render()
+    this.update()
     parent.append(this.table)
   }
 
@@ -22,7 +23,11 @@ export class Sessions {
       `
       this.tbody = this.table.tBodies[0]
     }
-    this.tbody.innerHTML = this.getData().map(({id, token, accountId}) => `
+  }
+
+  async update() {
+    const sessions = await this.getData()
+    this.tbody.innerHTML = sessions.map(({id, token, accountId}) => `
       <tr data-id="${id}">
         <td>${id}</td>
         <td class="string">${token}</td>

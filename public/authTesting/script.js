@@ -9,14 +9,27 @@ import {Tabs} from '../tabs/Tabs.js'
 import {fill} from './fill.js'
 
 
+const requestHandlers = {
+  '/api/reg': args => authority.register(...args),
+  '/api/login': args => authority.startSession(...args),
+  '/api/chkin': args => authority.continueSession(...args),
+  '/api/accs': () => accounts,
+  '/api/sess': () => sessions,
+  '/api/rmacc': ({id}) =>
+    accounts.splice(0, Infinity, ...accounts.filter(acc => acc.id != id)),
+  '/api/rmses': ({id}) =>
+    sessions.splice(0, Infinity, ...sessions.filter(sess => sess.id != id)),
+}
+
+
 const tabs = window.tabs = new Tabs(document.querySelector('tabs'),
-  {active: [0,1,2]})
+                                    {active: [0,1,2]})
 const forms = new Tabs(document.querySelector('tab>tabs'),
-  {active: [0,1,2], side: "left", className: 'sideway'})
+                       {active: [0,1,2], side: "left", className: 'sideway'})
 const lines = new Tabs(document.querySelector('tab>tabs'),
-  {active: [0,1], side: "right", className: 'sideway'})
+                       {active: [0,1], side: "right", className: 'sideway'})
 const tables = new Tabs(document.querySelector('tab>tabs'),
-  {active: [0,1], side: "right", className: 'sideway'})
+                        {active: [0,1], side: "right", className: 'sideway'})
 
 tabs.split(27, 40, 37)
 lines.split(75, 25)
@@ -41,14 +54,14 @@ const answers = new Answers(lines.tabs[0], insert, memo)
 const strings = new Strings(lines.tabs[1], insert)
 
 
-fill(authority, strings)
+let accountTable, sessionTable
 
-
-const accountTable = new Accounts(tables.tabs[0], () => accounts)
-accountTable.listen(removeAccount, insert, memo)
-const sessionTable = new Sessions(tables.tabs[1], () => sessions)
-sessionTable.listen(removeSession, insert, memo)
-
+fill(request, strings).then(async () => {
+  accountTable = new Accounts(tables.tabs[0], getAccounts)
+  accountTable.listen(removeAccount, insert, memo)
+  sessionTable = new Sessions(tables.tabs[1], getSessions)
+  sessionTable.listen(removeSession, insert, memo)
+})
 
 
 function memo(str) {
@@ -60,36 +73,43 @@ function insert(str) {
   lastInput.focus()
 }
 
-function handleRegister(...args) {
-  answers.add('register', authority.register(...args))
-  accountTable.render()
+async function getAccounts() {
+  return request('/api/accs')
+}
+
+async function getSessions() {
+  return request('/api/sess')
+}
+
+async function handleRegister(...args) {
   regForm.form.reset()
   regForm.form.querySelector('input').focus()
+  answers.add('register', await request('/api/reg', args))
+  await accountTable.update()
 }
 
-function handleLogin(...args) {
-  answers.add('login', authority.startSession(...args))
-  sessionTable.render()
+async function handleLogin(...args) {
   loginForm.form.reset()
   loginForm.form.querySelector('input').focus()
+  answers.add('login', await request('/api/login', args))
+  await sessionTable.update()
 }
 
-function handleCheck(...args) {
-  answers.add('check', authority.continueSession(+args[0], args[1]))
+async function handleCheck(...args) {
   checkForm.form.reset()
   checkForm.form.querySelector('input').focus()
+  args[0] = +args[0]
+  answers.add('check', await request('/api/chkin', args))
 }
 
-function removeAccount(id) {
-  accounts.splice(0, Infinity, ...accounts.filter(acc => acc.id != id))
-  return true
+async function removeAccount(id) {
+  return request('/api/rmacc', {id}).catch(() => false)
 }
 
-function removeSession(id) {
-  sessions.splice(0, Infinity, ...sessions.filter(sess => sess.id != id))
-  return true
+async function removeSession(id) {
+  return request('/api/rmses', {id}).catch(() => false)
 }
 
-function request(endPoint, query) {
-
+async function request(endPoint, query) {
+  return requestHandlers[endPoint]?.(query)
 }

@@ -2,7 +2,19 @@ export class Accounts {
   constructor (parent, getArrFn) {
     this.getData = getArrFn
     this.render()
+    this.update()
     parent.append(this.table)
+  }
+
+  async update() {
+    const accounts = await this.getData()
+    this.tbody.innerHTML = accounts.map(({id, customId, hash}) => `
+      <tr data-id="${id}">
+        <td>${id}</td>
+        <td class="string">${customId}</td>
+        <td class="string">${hash}</td>
+      </tr>
+    `).join('')
   }
 
   render() {
@@ -22,13 +34,6 @@ export class Accounts {
       `
       this.tbody = this.table.tBodies[0]
     }
-    this.tbody.innerHTML = this.getData().map(({id, customId, hash}) => `
-      <tr data-id="${id}">
-        <td>${id}</td>
-        <td class="string">${customId}</td>
-        <td class="string">${hash}</td>
-      </tr>
-    `).join('')
   }
 
   listen(delOneFn, outputFn, altOutputFn) {
