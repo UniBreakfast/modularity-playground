@@ -12,10 +12,10 @@ function buildHandlers(handlers, bufferTree, getType, path='') {
     const curPath = path+'/'+name
     if (Buffer.isBuffer(value)) {
       const type = getType(name)
-      handlers[curPath] = type ? resp => {
+      handlers[curPath] = type ? (req, resp) => {
         resp.setHeader('Content-type', type)
         resp.end(value)
-      } : resp => resp.end(value)
+      } : (req, resp) => resp.end(value)
     }
     else buildHandlers(handlers, value, getType, curPath)
   }
