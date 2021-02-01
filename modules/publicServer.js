@@ -8,4 +8,4 @@ module.exports = async function prepPublic() {
 const scanPublic = require('./publicScanner')
 const readPublic = require('./publicReader')
 const buildPublic = require('./publicBuilder')
-const determineType = require('./typeDict')
+const {determineType} = require('./typeDict')

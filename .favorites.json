@@ -1,0 +1,29 @@
+[
+    {
+        "type": "File",
+        "name": "d:\\code\\modularity-playground\\index.js",
+        "parent_id": null,
+        "fsPath": "d:\\code\\modularity-playground\\index.js",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "wL6hmEcS3B8Is1Uz"
+    },
+    {
+        "type": "File",
+        "name": "d:\\code\\modularity-playground\\modules\\apiServer.js",
+        "parent_id": null,
+        "fsPath": "d:\\code\\modularity-playground\\modules\\apiServer.js",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "AcbjmgTSwnCY5HKt"
+    },
+    {
+        "type": "File",
+        "name": "d:\\code\\modularity-playground\\public\\authTesting\\script.js",
+        "parent_id": null,
+        "fsPath": "d:\\code\\modularity-playground\\public\\authTesting\\script.js",
+        "workspaceRoot": null,
+        "workspacePath": null,
+        "id": "EM1ICowT5hGDapOm"
+    }
+]

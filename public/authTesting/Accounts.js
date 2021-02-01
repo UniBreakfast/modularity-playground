@@ -37,11 +37,11 @@ export class Accounts {
   }
 
   listen(delOneFn, outputFn, altOutputFn) {
-    this.tbody.addEventListener('click', ({target, altKey, shiftKey}) => {
+    this.tbody.addEventListener('click', async ({target, altKey, shiftKey}) => {
       if (shiftKey) {
         const row = target.closest('tr')
         const id = row.dataset.id
-        const deleted = delOneFn(id)
+        const deleted = await delOneFn(id)
         if (deleted) row.remove()
       } else if (target.classList.contains('string'))
         (altKey ? altOutputFn : outputFn)(target.innerText)

@@ -1,4 +1,3 @@
-import {authority, accounts, sessions} from '../authority/authority.mjs'
 import {Form} from './Form.js'
 import {Answers} from './Answers.js'
 import {Strings} from './Strings.js'
@@ -7,19 +6,6 @@ import {Sessions} from './Sessions.js'
 import {Tabs} from '../tabs/Tabs.js'
 
 import {fill} from './fill.js'
-
-
-const requestHandlers = {
-  '/api/reg': args => authority.register(...args),
-  '/api/login': args => authority.startSession(...args),
-  '/api/chkin': args => authority.continueSession(...args),
-  '/api/accs': () => accounts,
-  '/api/sess': () => sessions,
-  '/api/rmacc': ({id}) =>
-    accounts.splice(0, Infinity, ...accounts.filter(acc => acc.id != id)),
-  '/api/rmses': ({id}) =>
-    sessions.splice(0, Infinity, ...sessions.filter(sess => sess.id != id)),
-}
 
 
 const tabs = window.tabs = new Tabs(document.querySelector('tabs'),
@@ -56,12 +42,14 @@ const strings = new Strings(lines.tabs[1], insert)
 
 let accountTable, sessionTable
 
-fill(request, strings).then(async () => {
-  accountTable = new Accounts(tables.tabs[0], getAccounts)
-  accountTable.listen(removeAccount, insert, memo)
-  sessionTable = new Sessions(tables.tabs[1], getSessions)
-  sessionTable.listen(removeSession, insert, memo)
-})
+setTimeout(() => {
+  fill(request, strings).then(async () => {
+    accountTable = new Accounts(tables.tabs[0], getAccounts)
+    accountTable.listen(removeAccount, insert, memo)
+    sessionTable = new Sessions(tables.tabs[1], getSessions)
+    sessionTable.listen(removeSession, insert, memo)
+  })
+}, 1000);
 
 
 function memo(str) {
@@ -111,5 +99,7 @@ async function removeSession(id) {
 }
 
 async function request(endPoint, query) {
-  return requestHandlers[endPoint]?.(query)
+  const options = query ? [{method: 'POST', body: JSON.stringify(query)}] : []
+  const answer = await fetch(endPoint, ...options)
+  if (answer.ok) return answer.json().catch(() => false)
 }
