@@ -42,14 +42,13 @@ const strings = new Strings(lines.tabs[1], insert)
 
 let accountTable, sessionTable
 
-setTimeout(() => {
-  fill(request, strings).then(async () => {
-    accountTable = new Accounts(tables.tabs[0], getAccounts)
-    accountTable.listen(removeAccount, insert, memo)
-    sessionTable = new Sessions(tables.tabs[1], getSessions)
-    sessionTable.listen(removeSession, insert, memo)
-  })
-}, 1000);
+accountTable = new Accounts(tables.tabs[0], getAccounts)
+accountTable.listen(removeAccount, insert, memo)
+sessionTable = new Sessions(tables.tabs[1], getSessions)
+sessionTable.listen(removeSession, insert, memo)
+
+
+/**/fill(strings)
 
 
 function memo(str) {

@@ -1,4 +1,4 @@
-module.exports = function makeEndpointHandlers({authority, accounts, sessions}){
+module.exports = function makeEndpointHandlers(authority, accounts, sessions){
 
   return {
     register: async (req, resp) =>

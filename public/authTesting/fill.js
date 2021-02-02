@@ -1,5 +1,3 @@
-export async function fill(requestFn, strings) {
+export async function fill(strings) {
   strings.add('aDmInKeY')
-  await requestFn('/api/reg', ['admin', 'aDmInKeY'])
-  await requestFn('/api/login', ['admin', 'aDmInKeY'])
 }
