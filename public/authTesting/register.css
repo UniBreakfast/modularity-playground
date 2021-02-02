@@ -1,0 +1,22 @@
+form.registration {
+  display: flex;
+  flex-direction: column;
+  width: 270px;
+  gap: 10px;
+  margin: auto;
+}
+
+form.registration>h3 {
+  text-align: center;
+}
+
+form.registration>label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+form.registration>div {
+  display: flex;
+  justify-content: space-evenly;
+}

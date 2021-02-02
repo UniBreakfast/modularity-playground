@@ -1,0 +1,23 @@
+ul.strings {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: auto;
+  align-items: flex-start;
+  margin: auto;
+}
+
+ul.strings>li {
+  background: #f1f1f1;
+  padding: 3px 8px;
+}
+
+ul.strings .string {
+  color: brown;
+  font: bold 18px monospace;
+}
+
+ul.strings .string:before, ul.strings .string:after {
+  content: '"';
+}
