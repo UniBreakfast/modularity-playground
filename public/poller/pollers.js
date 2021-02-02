@@ -9,7 +9,7 @@ async function request(id, {name}) {
   await sleep(requestDelay)
 
   try {
-    const response = await fetch('/poll',
+    const response = await fetch('/api/poll',
       {method: 'GET', headers: {'poll-id': id, 'poll-name': name}})
     if (response.ok) return response.json()
   } catch {}

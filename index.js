@@ -13,7 +13,3 @@ server.prepare(publicServer, apiServer)
 // =================================================
 
 Object.assign(global, pollMaster)
-
-const buildAuthority = require('./modules/authority.js')
-
-buildAuthority().then(({authority}) => authority.register('me', 'now'))

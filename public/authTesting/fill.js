@@ -1,5 +1,3 @@
-export function fill(authority, strings) {
+export async function fill(strings) {
   strings.add('aDmInKeY')
-  authority.register('admin', 'aDmInKeY')
-  authority.startSession('admin', 'aDmInKeY')
 }

@@ -1,14 +1,19 @@
-module.exports = function determineType(fileName) {
-  const extMatch = fileName.match(/\.([^\/.]*)$/)
-  const ext = extMatch && extMatch[1] || ''
-  const type = types[ext]
-  if (!type) console.log('No header for type .'+ext)
-  return type
+const types = {}
+
+module.exports = {types,
+  determineType(fileName) {
+    const extMatch = fileName.match(/\.([^\/.]*)$/)
+    const ext = extMatch && extMatch[1] || ''
+    const type = types[ext]
+    if (!type) console.log('No header for type .'+ext)
+    return type
+  }
 }
 
 
 const utf = '; charset=utf-8'
-const types = {
+
+Object.assign(types, {
   '': 'text/html'+utf,
   html: 'text/html'+utf,
   htm: 'text/html'+utf,
@@ -35,4 +40,4 @@ const types = {
   wasm: 'application/wasm',
   zip: 'application/zip',
   rar: 'application/vnd.rar',
-}
+})

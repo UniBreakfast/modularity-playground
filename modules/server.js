@@ -13,7 +13,7 @@ const serverWrapper = module.exports = {
 }
 
 
-const { createServer } = require("http")
+const { createServer } = require("./httpity")
 
 let public = {}, api = {}
 
@@ -31,10 +31,9 @@ async function handleRequest(req, resp) {
 }
 
 function reportStart(...pagePaths) {
+  const root = `http://localhost:${serverWrapper.port}`
   return function () {
     console.timeEnd('preparations took')
-    console.log(`Server started on http://localhost:${serverWrapper.port}\n` +
-      pagePaths.map(path => `http://localhost:${serverWrapper.port+path}`)
-        .join('\n'))
+    console.log([`Server started at ${root}`,...pagePaths].join('\n'+root))
   }
 }
