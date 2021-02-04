@@ -10,19 +10,19 @@ module.exports = function makeEndpointHandlers(authority, accounts, sessions){
     checkIn: async (req, resp) =>
       resp.body = authority.continueSession(...await req.data),
 
-    getAccounts: async (req, resp) => resp.body = accounts,
+    getAccounts: async (req, resp) => resp.body = accounts.leak(),
 
-    getSessions: async (req, resp) => resp.body = sessions,
+    getSessions: async (req, resp) => resp.body = sessions.leak(),
 
     async removeAccount(req, resp) {
       const {id} = await req.data
-      accounts.splice(0, Infinity, ...accounts.filter(acc => acc.id != id))
+      accounts.steal(id)
       resp.body = true
     },
 
     async removeSession(req, resp) {
       const {id} = await req.data
-      accounts.splice(0, Infinity, ...sessions.filter(sess => sess.id != id))
+      sessions.steal(id)
       resp.body = true
     },
   }
