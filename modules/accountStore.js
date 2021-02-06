@@ -1,4 +1,5 @@
-module.exports = function buildAccountStore({accounts=[], lastId=0}={}) {
+module.exports = function buildAccountStore({accounts=[], lastId=0,
+  markFn=()=>{}}={}) {
 
   const accountStore = {insert, find, leak, steal}
 
@@ -9,6 +10,7 @@ module.exports = function buildAccountStore({accounts=[], lastId=0}={}) {
     if (!find({customId})) {
       const accountId = generateId()
       accounts.push({id: accountId, customId, hash})
+      markFn()
       return accountId
     }
   }
@@ -32,7 +34,7 @@ module.exports = function buildAccountStore({accounts=[], lastId=0}={}) {
 
   function steal(id) {
     const i = accounts.findIndex(acc => acc.id == id)
-    return ~i ? accounts.splice(i, 1)?.[0] : true
+    return ~i ? (markFn(), accounts.splice(i, 1)[0]) : true
   }
 }
 

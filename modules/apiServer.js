@@ -1,12 +1,14 @@
 const composeAuthority = require('./authority')
 const {handle} = require('./pollMaster')
 const makeEndpointHandlers = require('./authEndpoints')
-
+const rememberUsers = require('./userMemo')
 const fill = require('./fill')
 
 
 module.exports = async function prepAPI(params) {
-  const {authority, accounts, sessions} = await composeAuthority()
+  const authStartingPackage = await rememberUsers()
+  const {authority, accounts, sessions} =
+    await composeAuthority(authStartingPackage)
   /**/fill(authority)
   const auth = makeEndpointHandlers(authority, accounts, sessions)
 
