@@ -1,6 +1,6 @@
-module.exports = async function composeAuthority() {
-  const accountStore = buildAccountStore()
-  const sessionStore = buildSessionStore()
+module.exports = async function composeAuthority({accounts, sessions}) {
+  const accountStore = buildAccountStore(accounts)
+  const sessionStore = buildSessionStore(sessions)
 
   const accountClerk = buildAccountClerk(accountStore, crypter)
   const sessionClerk = buildSessionClerk(sessionStore, generateToken)

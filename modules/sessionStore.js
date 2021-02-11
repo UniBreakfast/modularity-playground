@@ -1,4 +1,5 @@
-module.exports = function buildSessionStore({sessions=[], lastId=0}={}) {
+module.exports = function buildSessionStore({sessions=[], lastId=0,
+  markFn=()=>{}}={}) {
 
   const sessionStore = {insert, find, leak, steal}
 
@@ -8,6 +9,7 @@ module.exports = function buildSessionStore({sessions=[], lastId=0}={}) {
   function insert({accountId, token}) {
     const sessionId = generateId()
     sessions.push({id: sessionId, accountId, token})
+    markFn()
     return sessionId
   }
 
@@ -28,7 +30,7 @@ module.exports = function buildSessionStore({sessions=[], lastId=0}={}) {
 
   function steal(id) {
     const i = sessions.findIndex(sess => sess.id == id)
-    return ~i ? sessions.splice(i, 1)?.[0] : true
+    return ~i ? (markFn(), sessions.splice(i, 1)[0]) : true
   }
 }
 
