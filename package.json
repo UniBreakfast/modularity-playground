@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/UniBreakfast/modularity-playground/issues"
   },
-  "homepage": "https://github.com/UniBreakfast/modularity-playground#readme"
+  "homepage": "https://github.com/UniBreakfast/modularity-playground#readme",
+  "dependencies": {
+    "mongodb": "^3.6.3"
+  }
 }
