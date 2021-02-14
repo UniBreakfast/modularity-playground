@@ -1,6 +1,8 @@
 module.exports = function buildAccountStore({accounts=[], lastId=0,
   markFn=()=>{}}={}) {
 
+  if (accounts.length) lastId = Math.max(...accounts.map(acc => acc.id))
+
   const accountStore = {insert, find, leak, steal}
 
   return accountStore

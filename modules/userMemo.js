@@ -1,8 +1,7 @@
 const interval = 5000
-const {save, load} = require('./jsonDumper')
 
 
-module.exports = async function rememberUsers() {
+module.exports = async function rememberUsers({save, load}) {
   const accounts = [], sessions = []
   await load(accounts, 'accounts').catch(()=>{})
   await load(sessions, 'sessions').catch(()=>{})

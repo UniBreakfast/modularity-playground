@@ -1,15 +1,22 @@
 const composeAuthority = require('./authority')
 const {handle} = require('./pollMaster')
 const makeEndpointHandlers = require('./authEndpoints')
+const {connect} = require('./mongoClient')
 const rememberUsers = require('./userMemo')
-const fill = require('./fill')
+const prepDumper = require('./mongoDumper')
+// const fill = require('./fill')
 
 
 module.exports = async function prepAPI(params) {
-  const authStartingPackage = await rememberUsers()
+
+  const db = await connect(process.env.MONGO_URI, 'modular_playground')
+  const dumpCollection = db.collection('dumps')
+  const dumper = prepDumper(dumpCollection)
+
+  const authStartingPackage = await rememberUsers(dumper)
   const {authority, accounts, sessions} =
     await composeAuthority(authStartingPackage)
-  /**/fill(authority)
+  // fill(authority)
   const auth = makeEndpointHandlers(authority, accounts, sessions)
 
   return {

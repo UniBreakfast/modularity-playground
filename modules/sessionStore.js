@@ -1,6 +1,8 @@
 module.exports = function buildSessionStore({sessions=[], lastId=0,
   markFn=()=>{}}={}) {
 
+  if (sessions.length) lastId = Math.max(...sessions.map(sess => sess.id))
+
   const sessionStore = {insert, find, leak, steal}
 
   return sessionStore
