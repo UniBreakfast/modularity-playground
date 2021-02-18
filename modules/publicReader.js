@@ -3,7 +3,7 @@ module.exports = async function readPublic(structure) {
 }
 
 
-const { readFile } = require("fs").promises
+const { readFile } = require("fs/promises")
 
 
 async function read(path, struct) {

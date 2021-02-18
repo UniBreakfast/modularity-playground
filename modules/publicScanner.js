@@ -3,7 +3,7 @@ module.exports = async function scanPublic() {
 }
 
 
-const { readdir } = require("fs").promises
+const { readdir } = require("fs/promises")
 
 
 async function scan(path) {
