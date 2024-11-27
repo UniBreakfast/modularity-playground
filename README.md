@@ -11,3 +11,7 @@ index.js
   - publicReader
   - publicBuilder
   - typeDict
+
+![image](https://github.com/user-attachments/assets/c4bf155f-03b4-46f6-b8f1-96db053d7874)
+
+![image](https://github.com/user-attachments/assets/440dc307-68ec-4630-ab27-d9340d3e8527)
